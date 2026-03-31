@@ -1,0 +1,1312 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>My Creative Studio – Books, Movies, Songs & More</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg: #020617;
+            --bg-alt: #020617;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.15);
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --border: #1f2937;
+            --danger: #f97373;
+            --radius: 10px;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(145deg, #020617 0, #020617 40%, #0b1120 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 18px 22px 10px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9 40%, #0369a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0f2fe;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+        }
+
+        .title-block h1 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 0.03em;
+        }
+
+        .title-block p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+            .pill span {
+                color: var(--accent);
+                font-weight: 600;
+            }
+
+        main {
+            display: grid;
+            grid-template-columns: minmax(0, 260px) minmax(0, 1.4fr) minmax(0, 1.6fr);
+            min-height: 560px;
+        }
+
+        @media (max-width: 1050px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            border-right: 1px solid rgba(148, 163, 184, 0.15);
+            padding: 14px 14px 16px;
+            background: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 7px 8px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--muted);
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: 0.18s ease;
+        }
+
+            .tab span.icon {
+                font-size: 14px;
+            }
+
+            .tab.active {
+                background: radial-gradient(circle at top left, #0f172a, #020617);
+                border-color: rgba(56, 189, 248, 0.7);
+                color: #e5f3ff;
+                box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+            }
+
+            .tab:not(.active):hover {
+                background: rgba(15, 23, 42, 0.9);
+                border-color: rgba(148, 163, 184, 0.4);
+                color: #e5e7eb;
+            }
+
+        .sidebar-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin: 8px 2px 4px;
+        }
+
+        .project-list {
+            max-height: 260px;
+            overflow-y: auto;
+            padding-right: 4px;
+            margin-bottom: 8px;
+        }
+
+        .project-item {
+            padding: 7px 8px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            margin-bottom: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transition: 0.16s ease;
+        }
+
+            .project-item.active {
+                background: rgba(15, 23, 42, 0.95);
+                border-color: rgba(56, 189, 248, 0.7);
+                box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+            }
+
+            .project-item:hover:not(.active) {
+                background: rgba(15, 23, 42, 0.9);
+                border-color: rgba(148, 163, 184, 0.4);
+            }
+
+        .project-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .project-meta {
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge {
+            padding: 2px 6px;
+            border-radius: 999px;
+            font-size: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--muted);
+        }
+
+            .badge.outline {
+                border-color: rgba(56, 189, 248, 0.7);
+                color: #bae6fd;
+            }
+
+        .sidebar-footer {
+            border-top: 1px dashed rgba(148, 163, 184, 0.3);
+            padding-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            padding: 6px 9px;
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.18s ease;
+        }
+
+            .btn.primary {
+                border-color: rgba(56, 189, 248, 0.9);
+                background: radial-gradient(circle at top left, #38bdf8, #0ea5e9);
+                color: #0b1120;
+                font-weight: 600;
+                box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+            }
+
+                .btn.primary:hover {
+                    filter: brightness(1.05);
+                    transform: translateY(-0.5px);
+                }
+
+            .btn:hover:not(.primary) {
+                border-color: rgba(148, 163, 184, 0.9);
+                background: rgba(15, 23, 42, 1);
+            }
+
+        /* Middle: text / AI / song area */
+
+        .editor {
+            padding: 14px 16px 16px;
+            border-right: 1px solid rgba(148, 163, 184, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .editor-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+            .editor-title-group h2 {
+                margin: 0;
+                font-size: 17px;
+            }
+
+            .editor-title-group p {
+                margin: 0;
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+        .editor-controls {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .field {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            font-size: 12px;
+        }
+
+        label {
+            color: var(--muted);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text);
+            padding: 6px 8px;
+            font-size: 13px;
+            outline: none;
+            transition: 0.16s ease;
+        }
+
+            input:focus,
+            select:focus,
+            textarea:focus {
+                border-color: rgba(56, 189, 248, 0.8);
+                box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+            }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            font-size: 11px;
+        }
+
+        .chip {
+            padding: 3px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--muted);
+            cursor: pointer;
+            background: rgba(15, 23, 42, 0.9);
+            transition: 0.16s ease;
+        }
+
+            .chip.active {
+                border-color: rgba(56, 189, 248, 0.9);
+                color: #e0f2fe;
+                background: rgba(15, 23, 42, 1);
+            }
+
+            .chip:hover {
+                border-color: rgba(148, 163, 184, 0.9);
+                color: #e5e7eb;
+            }
+
+        .status-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+            .status-line span.highlight {
+                color: #bae6fd;
+            }
+
+        .danger {
+            color: var(--danger);
+            cursor: pointer;
+        }
+
+            .danger:hover {
+                text-decoration: underline;
+            }
+
+        .hint {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: -2px;
+        }
+
+        .ai-box {
+            border-radius: 10px;
+            border: 1px dashed rgba(148, 163, 184, 0.5);
+            padding: 8px;
+            font-size: 11px;
+            color: var(--muted);
+            background: rgba(15, 23, 42, 0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+            .ai-box textarea {
+                min-height: 70px;
+            }
+
+        /* Right: media editor */
+
+        .media-panel {
+            padding: 14px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .media-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .media-header h3 {
+                margin: 0;
+                font-size: 15px;
+            }
+
+            .media-header p {
+                margin: 0;
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+        .media-upload-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 11px;
+            align-items: center;
+        }
+
+            .media-upload-row input[type="file"] {
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+        .preview-box {
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        video,
+        audio {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .timeline {
+            margin-top: 4px;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+        }
+
+        .timeline-label {
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            overflow: hidden;
+        }
+
+        .clip {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            border-radius: 6px;
+            background: rgba(56, 189, 248, 0.25);
+            border: 1px solid rgba(56, 189, 248, 0.9);
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #e0f2fe;
+            user-select: none;
+        }
+
+            .clip:active {
+                cursor: grabbing;
+            }
+
+        .clip-handle {
+            width: 4px;
+            background: rgba(15, 23, 42, 0.9);
+            opacity: 0.8;
+        }
+
+            .clip-handle.left {
+                border-radius: 6px 0 0 6px;
+                margin-right: 3px;
+            }
+
+            .clip-handle.right {
+                border-radius: 0 6px 6px 0;
+                margin-left: 3px;
+            }
+
+        .clip-label {
+            flex: 1;
+            text-align: center;
+            padding: 0 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .timeline-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .drop-zone {
+            margin-top: 4px;
+            border-radius: 8px;
+            border: 1px dashed rgba(148, 163, 184, 0.6);
+            padding: 6px;
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+            .drop-zone.dragover {
+                border-color: rgba(56, 189, 248, 0.9);
+                color: #e0f2fe;
+                background: rgba(15, 23, 42, 1);
+            }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div class="brand">
+                <div class="logo">CS</div>
+                <div class="title-block">
+                    <h1>My Creative Studio</h1>
+                    <p>Books, movies, stories, songs, and simple media editing in one place.</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="pill">Local save: <span>On</span></div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="tabs">
+                    <button class="tab active" data-type="book">
+                        <span class="icon">📚</span> Book
+                    </button>
+                    <button class="tab" data-type="movie">
+                        <span class="icon">🎬</span> Movie
+                    </button>
+                    <button class="tab" data-type="story">
+                        <span class="icon">📝</span> Story
+                    </button>
+                    <button class="tab" data-type="song">
+                        <span class="icon">🎵</span> Song
+                    </button>
+                </div>
+
+                <div class="sidebar-section-title">Your projects</div>
+                <div class="project-list" id="projectList"></div>
+
+                <div class="sidebar-footer">
+                    <button class="btn primary" id="newProjectBtn">
+                        <span>＋</span> New <span id="currentTypeLabel">Book</span>
+                    </button>
+                    <div>Tip: Click a project to edit it. Everything is saved automatically on this device.</div>
+                </div>
+            </aside>
+
+            <!-- Middle: text / AI / song -->
+            <section class="editor">
+                <div class="editor-header">
+                    <div class="editor-title-group">
+                        <h2 id="editorHeading">Book editor</h2>
+                        <p id="editorSubheading">Write, plan, and organize your creative projects.</p>
+                    </div>
+                    <div class="editor-controls">
+                        <button class="btn" id="duplicateBtn">Duplicate</button>
+                        <button class="btn" id="exportBtn">Export text</button>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="titleInput">Title</label>
+                        <input id="titleInput" type="text" placeholder="My epic idea..." />
+                    </div>
+                    <div class="field">
+                        <label for="taglineInput">Tagline / logline</label>
+                        <input id="taglineInput" type="text" placeholder="A one-sentence hook for your project" />
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label>Genre</label>
+                        <div class="chips" id="genreChips">
+                            <div class="chip">Fantasy</div>
+                            <div class="chip">Sci‑Fi</div>
+                            <div class="chip">Mystery</div>
+                            <div class="chip">Romance</div>
+                            <div class="chip">Drama</div>
+                            <div class="chip">Comedy</div>
+                            <div class="chip">Horror</div>
+                            <div class="chip">Pop</div>
+                            <div class="chip">Hip‑Hop</div>
+                            <div class="chip">Rock</div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="statusSelect">Status</label>
+                        <select id="statusSelect">
+                            <option value="idea">Idea</option>
+                            <option value="outline">Outline</option>
+                            <option value="draft">Draft</option>
+                            <option value="polish">Polishing</option>
+                            <option value="finished">Finished</option>
+                        </select>
+                        <p class="hint">Use this to track where you’re at.</p>
+                    </div>
+                </div>
+
+                <!-- Song-specific fields -->
+                <div class="field-row" id="songFields" style="display:none;">
+                    <div class="field">
+                        <label for="tempoInput">Tempo (BPM)</label>
+                        <input id="tempoInput" type="number" placeholder="e.g., 120" />
+                    </div>
+                    <div class="field">
+                        <label for="moodInput">Mood</label>
+                        <input id="moodInput" type="text" placeholder="Energetic, sad, dreamy..." />
+                    </div>
+                </div>
+
+                <div class="field" id="structureField" style="display:none;">
+                    <label for="structureInput">Song structure</label>
+                    <textarea id="structureInput" placeholder="Verse → Chorus → Verse → Bridge..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label for="contentInput">Main content (chapters, script, lyrics, etc.)</label>
+                    <textarea id="contentInput" placeholder="Write your chapters, scenes, or lyrics here..."></textarea>
+                    <div class="status-line">
+                        <span>Words: <span class="highlight" id="wordCount">0</span></span>
+                        <span><span class="danger" id="deleteBtn">Delete project</span></span>
+                    </div>
+                </div>
+
+                <!-- AI-style helper box (text only placeholder) -->
+                <div class="ai-box">
+                    <div><strong>AI helper (concept)</strong> – Describe what you want (song, scene, story idea). This box is where an AI could plug in later.</div>
+                    <textarea id="aiPromptInput" placeholder="Example: Write a sad pop song about missing someone, mid‑tempo, with a big chorus."></textarea>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                        <button class="btn" id="aiSuggestBtn">Generate idea (placeholder)</button>
+                        <span style="font-size:10px;color:var(--muted);">Right now this just fills in example text locally. Real AI would need an online service.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: media / timeline editor -->
+            <section class="media-panel">
+                <div class="media-header">
+                    <div>
+                        <h3>Media editor</h3>
+                        <p>Preview video, audio, and arrange simple clips on a timeline.</p>
+                    </div>
+                    <button class="btn" id="clearMediaBtn">Clear media</button>
+                </div>
+
+                <div class="media-upload-row">
+                    <span><strong>Upload:</strong></span>
+                    <input type="file" id="videoInput" accept="video/*" />
+                    <input type="file" id="audioInput" accept="audio/*" />
+                    <input type="file" id="imageInput" accept="image/*" multiple />
+                </div>
+
+                <div class="drop-zone" id="dropZone">
+                    Drag & drop videos, sounds, or pictures here to add them as clips.
+                </div>
+
+                <div class="preview-box">
+                    <video id="videoPreview" controls></video>
+                    <audio id="audioPreview" controls style="margin-top:4px;"></audio>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-label">Video frames / clips</div>
+                    <div class="timeline-track" id="videoTrack"></div>
+                    <div class="timeline-footer">
+                        <span>Drag clips left/right to rearrange. Handles suggest trimming.</span>
+                        <span id="videoClipCount">0 clips</span>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-label">Audio waveform / clips</div>
+                    <div class="timeline-track" id="audioTrack"></div>
+                    <div class="timeline-footer">
+                        <span>Drag audio clips to sync with video.</span>
+                        <span id="audioClipCount">0 clips</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>const STORAGE_KEY = "creativeStudioProjects_v2";
+
+    const tabs = document.querySelectorAll(".tab");
+    const projectListEl = document.getElementById("projectList");
+    const newProjectBtn = document.getElementById("newProjectBtn");
+    const currentTypeLabel = document.getElementById("currentTypeLabel");
+
+    const editorHeading = document.getElementById("editorHeading");
+    const editorSubheading = document.getElementById("editorSubheading");
+
+    const titleInput = document.getElementById("titleInput");
+    const taglineInput = document.getElementById("taglineInput");
+    const statusSelect = document.getElementById("statusSelect");
+    const contentInput = document.getElementById("contentInput");
+    const wordCountEl = document.getElementById("wordCount");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const duplicateBtn = document.getElementById("duplicateBtn");
+    const exportBtn = document.getElementById("exportBtn");
+    const genreChips = document.getElementById("genreChips");
+
+    const songFields = document.getElementById("songFields");
+    const structureField = document.getElementById("structureField");
+    const tempoInput = document.getElementById("tempoInput");
+    const moodInput = document.getElementById("moodInput");
+    const structureInput = document.getElementById("structureInput");
+
+    const aiPromptInput = document.getElementById("aiPromptInput");
+    const aiSuggestBtn = document.getElementById("aiSuggestBtn");
+
+    const videoInput = document.getElementById("videoInput");
+    const audioInput = document.getElementById("audioInput");
+    const imageInput = document.getElementById("imageInput");
+    const videoPreview = document.getElementById("videoPreview");
+    const audioPreview = document.getElementById("audioPreview");
+    const videoTrack = document.getElementById("videoTrack");
+    const audioTrack = document.getElementById("audioTrack");
+    const videoClipCount = document.getElementById("videoClipCount");
+    const audioClipCount = document.getElementById("audioClipCount");
+    const dropZone = document.getElementById("dropZone");
+    const clearMediaBtn = document.getElementById("clearMediaBtn");
+
+    let projects = [];
+    let currentType = "book"; // book | movie | story | song
+    let currentId = null;
+
+    function loadProjects() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        projects = raw ? JSON.parse(raw) : [];
+      } catch {
+        projects = [];
+      }
+    }
+
+    function saveProjects() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+    }
+
+    function createProject(type) {
+      const now = new Date().toISOString();
+      return {
+        id: "p_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+        type,
+        title: "Untitled " + type,
+        tagline: "",
+        genre: "",
+        status: "idea",
+        content: "",
+        tempo: "",
+        mood: "",
+        structure: "",
+        media: {
+          videoClips: [],
+          audioClips: [],
+          images: []
+        },
+        createdAt: now,
+        updatedAt: now,
+      };
+    }
+
+    function setEditorForType(type) {
+      currentType = type;
+      currentTypeLabel.textContent =
+        type === "book" ? "Book" :
+        type === "movie" ? "Movie" :
+        type === "story" ? "Story" : "Song";
+
+      if (type === "book") {
+        editorHeading.textContent = "Book editor";
+        editorSubheading.textContent = "Build chapters, arcs, and worlds for your book.";
+      } else if (type === "movie") {
+        editorHeading.textContent = "Movie planner";
+        editorSubheading.textContent = "Outline scenes, characters, and beats for your film.";
+      } else if (type === "story") {
+        editorHeading.textContent = "Story notebook";
+        editorSubheading.textContent = "Capture short stories, scenes, and ideas.";
+      } else {
+        editorHeading.textContent = "Songwriter";
+        editorSubheading.textContent = "Write lyrics, structure your song, and capture musical ideas.";
+      }
+
+      updateSongFieldVisibility();
+    }
+
+    function updateSongFieldVisibility() {
+      const isSong = currentType === "song";
+      songFields.style.display = isSong ? "flex" : "none";
+      structureField.style.display = isSong ? "block" : "none";
+    }
+
+    function renderProjectList() {
+      projectListEl.innerHTML = "";
+      const filtered = projects.filter((p) => p.type === currentType);
+
+      if (!filtered.length) {
+        const empty = document.createElement("div");
+        empty.style.fontSize = "12px";
+        empty.style.color = "#9ca3af";
+        empty.style.padding = "6px 2px";
+        empty.textContent = "No projects yet. Create your first one.";
+        projectListEl.appendChild(empty);
+        return;
+      }
+
+      filtered
+        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+        .forEach((p) => {
+          const item = document.createElement("button");
+          item.className = "project-item" + (p.id === currentId ? " active" : "");
+          item.innerHTML = `
+            <div class="project-title">${p.title || "Untitled"}</div>
+            <div class="project-meta">
+              <span>${p.tagline || "No tagline yet"}</span>
+              <span class="badge ${p.status === "finished" ? "outline" : ""}">${p.status}</span>
+            </div>
+          `;
+          item.addEventListener("click", () => {
+            openProject(p.id);
+          });
+          projectListEl.appendChild(item);
+        });
+    }
+
+    function openProject(id) {
+      const project = projects.find((p) => p.id === id);
+      if (!project) return;
+      currentId = id;
+
+      setEditorForType(project.type);
+
+      titleInput.value = project.title || "";
+      taglineInput.value = project.tagline || "";
+      statusSelect.value = project.status || "idea";
+      contentInput.value = project.content || "";
+      tempoInput.value = project.tempo || "";
+      moodInput.value = project.mood || "";
+      structureInput.value = project.structure || "";
+      updateWordCount();
+
+      Array.from(genreChips.children).forEach((chip) => {
+        chip.classList.toggle("active", chip.textContent === project.genre);
+      });
+
+      loadMediaFromProject(project);
+      renderProjectList();
+    }
+
+    function updateCurrentProject(field, value) {
+      const idx = projects.findIndex((p) => p.id === currentId);
+      if (idx === -1) return;
+      projects[idx][field] = value;
+      projects[idx].updatedAt = new Date().toISOString();
+      saveProjects();
+      renderProjectList();
+    }
+
+    function updateCurrentProjectMedia(media) {
+      const idx = projects.findIndex((p) => p.id === currentId);
+      if (idx === -1) return;
+      projects[idx].media = media;
+      projects[idx].updatedAt = new Date().toISOString();
+      saveProjects();
+    }
+
+    function updateWordCount() {
+      const text = contentInput.value || "";
+      const words = text
+        .trim()
+        .split(/\s+/)
+        .filter((w) => w.length > 0);
+      wordCountEl.textContent = words.length;
+    }
+
+    // AI placeholder
+    aiSuggestBtn.addEventListener("click", () => {
+      const type = currentType;
+      if (type === "song") {
+        contentInput.value = `Verse 1:\nI’m walking through the city with your name inside my head,\nEvery corner, every echo, all the words we left unsaid.\n\nChorus:\nSo I keep singing in the dark, hoping you can hear my heart,\nEvery beat’s a memory of you.\n`;
+      } else if (type === "movie") {
+        contentInput.value = `Opening scene:\nNighttime. A quiet street. Our main character walks alone under flickering streetlights...\n\nAct 1:\n- Introduce main character\n- Show their normal world\n- Hint at the big problem\n`;
+      } else if (type === "book") {
+        contentInput.value = `Chapter 1 – The Beginning\nThe rain had not stopped for three days when the letter finally arrived...\n`;
+      } else {
+        contentInput.value = `Short story idea:\nA person finds a door in their house that wasn’t there yesterday. When they open it, it leads to...\n`;
+      }
+      updateCurrentProject("content", contentInput.value);
+      updateWordCount();
+    });
+
+    // Tabs
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        const type = tab.getAttribute("data-type");
+        setEditorForType(type);
+        renderProjectList();
+
+        const first = projects.find((p) => p.type === type);
+        if (first) {
+          openProject(first.id);
+        } else {
+          const p = createProject(type);
+          projects.push(p);
+          saveProjects();
+          renderProjectList();
+          openProject(p.id);
+        }
+      });
+    });
+
+    newProjectBtn.addEventListener("click", () => {
+      const p = createProject(currentType);
+      projects.push(p);
+      saveProjects();
+      renderProjectList();
+      openProject(p.id);
+    });
+
+    titleInput.addEventListener("input", (e) => {
+      updateCurrentProject("title", e.target.value);
+    });
+
+    taglineInput.addEventListener("input", (e) => {
+      updateCurrentProject("tagline", e.target.value);
+    });
+
+    statusSelect.addEventListener("change", (e) => {
+      updateCurrentProject("status", e.target.value);
+    });
+
+    contentInput.addEventListener("input", (e) => {
+      updateCurrentProject("content", e.target.value);
+      updateWordCount();
+    });
+
+    tempoInput.addEventListener("input", (e) => {
+      updateCurrentProject("tempo", e.target.value);
+    });
+
+    moodInput.addEventListener("input", (e) => {
+      updateCurrentProject("mood", e.target.value);
+    });
+
+    structureInput.addEventListener("input", (e) => {
+      updateCurrentProject("structure", e.target.value);
+    });
+
+    genreChips.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("chip")) return;
+      const selected = e.target.textContent;
+      Array.from(genreChips.children).forEach((chip) =>
+        chip.classList.toggle("active", chip === e.target)
+      );
+      updateCurrentProject("genre", selected);
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      if (!currentId) return;
+      const ok = confirm("Delete this project? This cannot be undone.");
+      if (!ok) return;
+      projects = projects.filter((p) => p.id !== currentId);
+      saveProjects();
+      currentId = null;
+      renderProjectList();
+
+      const first = projects.find((p) => p.type === currentType);
+      if (first) {
+        openProject(first.id);
+      } else {
+        titleInput.value = "";
+        taglineInput.value = "";
+        statusSelect.value = "idea";
+        contentInput.value = "";
+        tempoInput.value = "";
+        moodInput.value = "";
+        structureInput.value = "";
+        updateWordCount();
+        Array.from(genreChips.children).forEach((chip) =>
+          chip.classList.remove("active")
+        );
+        clearMedia();
+      }
+    });
+
+    duplicateBtn.addEventListener("click", () => {
+      if (!currentId) return;
+      const original = projects.find((p) => p.id === currentId);
+      if (!original) return;
+      const copy = {
+        ...original,
+        id: "p_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+        title: (original.title || "Untitled") + " (copy)",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      projects.push(copy);
+      saveProjects();
+      renderProjectList();
+      openProject(copy.id);
+    });
+
+    exportBtn.addEventListener("click", () => {
+      if (!currentId) return;
+      const project = projects.find((p) => p.id === currentId);
+      if (!project) return;
+
+      const text =
+        (project.title || "Untitled") +
+        "\n\n" +
+        (project.tagline ? "Tagline: " + project.tagline + "\n\n" : "") +
+        (project.genre ? "Genre: " + project.genre + "\n" : "") +
+        (project.type === "song" && project.tempo ? "Tempo: " + project.tempo + " BPM\n" : "") +
+        (project.type === "song" && project.mood ? "Mood: " + project.mood + "\n" : "") +
+        "Status: " +
+        project.status +
+        "\n\n" +
+        (project.type === "song" && project.structure
+          ? "Structure:\n" + project.structure + "\n\n"
+          : "") +
+        project.content;
+
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = (project.title || "project") + ".txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Media / timeline logic (simple)
+
+    let currentMedia = {
+      videoClips: [],
+      audioClips: [],
+      images: []
+    };
+
+    function clearMedia() {
+      currentMedia = { videoClips: [], audioClips: [], images: [] };
+      videoPreview.removeAttribute("src");
+      audioPreview.removeAttribute("src");
+      videoPreview.load();
+      audioPreview.load();
+      renderTracks();
+      updateCurrentProjectMedia(currentMedia);
+    }
+
+    clearMediaBtn.addEventListener("click", clearMedia);
+
+    function loadMediaFromProject(project) {
+      currentMedia = project.media || { videoClips: [], audioClips: [], images: [] };
+      renderTracks();
+    }
+
+    function addClipToTrack(trackType, label) {
+      const track = trackType === "video" ? videoTrack : audioTrack;
+      const clips = trackType === "video" ? currentMedia.videoClips : currentMedia.audioClips;
+
+      const start = clips.length * 20;
+      const width = 40;
+
+      const clip = {
+        id: trackType + "_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+        label,
+        start,
+        width
+      };
+      clips.push(clip);
+      renderTracks();
+      updateCurrentProjectMedia(currentMedia);
+    }
+
+    function renderTracks() {
+      videoTrack.innerHTML = "";
+      audioTrack.innerHTML = "";
+
+      currentMedia.videoClips.forEach((clip) => {
+        const el = createClipElement(clip, "video");
+        videoTrack.appendChild(el);
+      });
+
+      currentMedia.audioClips.forEach((clip) => {
+        const el = createClipElement(clip, "audio");
+        audioTrack.appendChild(el);
+      });
+
+      videoClipCount.textContent = currentMedia.videoClips.length + " clips";
+      audioClipCount.textContent = currentMedia.audioClips.length + " clips";
+    }
+
+    function createClipElement(clip, type) {
+      const el = document.createElement("div");
+      el.className = "clip";
+      el.style.left = clip.start + "px";
+      el.style.width = clip.width + "px";
+
+      const leftHandle = document.createElement("div");
+      leftHandle.className = "clip-handle left";
+
+      const rightHandle = document.createElement("div");
+      rightHandle.className = "clip-handle right";
+
+      const label = document.createElement("div");
+      label.className = "clip-label";
+      label.textContent = clip.label;
+
+      el.appendChild(leftHandle);
+      el.appendChild(label);
+      el.appendChild(rightHandle);
+
+      let isDragging = false;
+      let dragOffsetX = 0;
+
+      el.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        dragOffsetX = e.clientX - el.getBoundingClientRect().left;
+        document.body.style.userSelect = "none";
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const track = type === "video" ? videoTrack : audioTrack;
+        const rect = track.getBoundingClientRect();
+        let x = e.clientX - rect.left - dragOffsetX;
+        if (x < 0) x = 0;
+        if (x > rect.width - el.offsetWidth) x = rect.width - el.offsetWidth;
+        el.style.left = x + "px";
+
+        const clips = type === "video" ? currentMedia.videoClips : currentMedia.audioClips;
+        const idx = clips.findIndex((c) => c.id === clip.id);
+        if (idx !== -1) {
+          clips[idx].start = x;
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.style.userSelect = "";
+          updateCurrentProjectMedia(currentMedia);
+        }
+      });
+
+      return el;
+    }
+
+    function handleFileInput(file, kind) {
+      const url = URL.createObjectURL(file);
+      if (kind === "video") {
+        videoPreview.src = url;
+        videoPreview.load();
+        addClipToTrack("video", file.name);
+      } else if (kind === "audio") {
+        audioPreview.src = url;
+        audioPreview.load();
+        addClipToTrack("audio", file.name);
+      } else if (kind === "image") {
+        currentMedia.images.push({ name: file.name });
+        addClipToTrack("video", file.name);
+        updateCurrentProjectMedia(currentMedia);
+      }
+    }
+
+    videoInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) handleFileInput(file, "video");
+    });
+
+    audioInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) handleFileInput(file, "audio");
+    });
+
+    imageInput.addEventListener("change", (e) => {
+      const files = Array.from(e.target.files || []);
+      files.forEach((file) => handleFileInput(file, "image"));
+    });
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const files = Array.from(e.dataTransfer.files || []);
+      files.forEach((file) => {
+        if (file.type.startsWith("video/")) {
+          handleFileInput(file, "video");
+        } else if (file.type.startsWith("audio/")) {
+          handleFileInput(file, "audio");
+        } else if (file.type.startsWith("image/")) {
+          handleFileInput(file, "image");
+        }
+      });
+    });
+
+    // Init
+    loadProjects();
+    setEditorForType(currentType);
+    renderProjectList();
+
+    let first = projects.find((p) => p.type === currentType);
+    if (!first) {
+      first = createProject(currentType);
+      projects.push(first);
+      saveProjects();
+    }
+    openProject(first.id);</script>
+</body>
+</html>
